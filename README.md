@@ -12,8 +12,6 @@
 <p align="center">
   <a href="https://drive.google.com/file/d/15x1CgJNCqwG36SktgncbHVFpFharV_lh/view"><strong>Download the dataset</strong></a>
   &nbsp;·&nbsp;
-  <a href="paper/FM3D-IAD.pdf"><strong>Read the paper</strong></a>
-  &nbsp;·&nbsp;
   <a href="#dataset-layout"><strong>Explore the file layout</strong></a>
 </p>
 
@@ -50,7 +48,7 @@ Training uses normal samples only. Each physical object was captured once; its p
 
 ### Categories and splits
 
-The directory names below follow the dataset layout described in the supplied README. The display names in parentheses match the paper where they differ.
+The directory names below follow the released dataset layout.
 
 | Category directory | Train normal | Test normal | Test anomaly | Anomaly subtypes |
 | --- | ---: | ---: | ---: | ---: |
@@ -70,7 +68,7 @@ The directory names below follow the dataset layout described in the supplied RE
 
 **[Download FM3D-IAD from Google Drive](https://drive.google.com/file/d/15x1CgJNCqwG36SktgncbHVFpFharV_lh/view)** and extract the archive. Keep the category, split, and subtype folders intact.
 
-Some release archives may extract to a root folder named `Neu3D-AD`, a legacy internal name noted in the supplied README. The root folder can be renamed to `FM3D-IAD`; the category folders should retain their released names. In particular, `jnbroken` is a released subtype directory name under `capsule`.
+Some release archives may extract to a root folder named `Neu3D-AD`, a legacy root folder name. The root folder can be renamed to `FM3D-IAD`; the category folders should retain their released names. In particular, `jnbroken` is a released subtype directory name under `capsule`.
 
 ## Dataset layout
 
@@ -125,33 +123,13 @@ RGB anomaly masks were manually delineated with LabelMe, and point-level labels 
 
 ## Benchmark protocol
 
-| Task | Prediction | Ground truth | Reported metrics |
+| Task | Prediction | Ground truth | Evaluation metrics |
 | --- | --- | --- | --- |
 | Object-level detection | One anomaly score per sample | Normal / anomalous sample label | AUROC |
 | RGB pixel localization | Anomaly map in image space | Manually annotated RGB mask | AUROC, F1-max, AUPR |
 | 3D point localization | One score per valid XYZ point | Manually annotated point labels | AUROC, F1-max, AUPR |
 
-The paper reports category-wise results and an **unweighted mean over the ten categories**. RGB localization is evaluated against the released RGB masks in the **800 × 800** image space; GammaNet upsamples its predicted map to that space. Point-level scores are evaluated directly against point labels in the 3D domain, without projection to the RGB image plane.
-
-The paper benchmarks RGB-only, point-cloud-only, and RGB–point-cloud methods using the same FM3D-IAD splits. **GammaNet** is included as a reproducible RGB–point-cloud reference baseline. It reports a mean object-level AUROC of **0.813** and mean RGB pixel-level AUROC of **0.986**. Point-level localization remains challenging: the strongest reported mean point-level AUROC is **0.584** (BTF with FPFH). These are results from the supplied manuscript; see the [paper](paper/FM3D-IAD.pdf) for per-category results, configurations, and other metrics.
-
-## Citation
-
-If FM3D-IAD is useful in your research, please cite the manuscript:
-
-```bibtex
-@misc{gao2026fm3diad,
-  title  = {FM3D-IAD: A Fine-Grained RGB--Point Cloud Dataset and Benchmark for Industrial Anomaly Detection},
-  author = {Gao, Simin and Wu, Yakun and Zhang, Yunzhou},
-  year   = {2026},
-  note   = {Manuscript under review}
-}
-```
-
 ## Usage terms and contact
 
-The supplied materials do not specify a dataset or code license. For usage terms or questions about the dataset, contact **Yunzhou Zhang** (`zhangyunzhou@mail.neu.edu.cn`) or **Yakun Wu** (`wykyjs1@163.com`).
+A dataset or code license is not specified here. For usage terms or questions about the dataset, contact **Yunzhou Zhang** (`zhangyunzhou@mail.neu.edu.cn`) or **Yakun Wu** (`wykyjs1@163.com`).
 
-## Acknowledgements
-
-The benchmark draws on public implementations and pretrained representations, including Anomalib, DINO, Point-MAE, PatchCore, and M3DM. We thank their authors for making their work available.
